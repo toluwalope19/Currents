@@ -38,11 +38,13 @@ class BookmarkLocalDataSource(private val database: CurrentsDatabase) {
                 isLive      = if (article.isLive) 1L else 0L,
                 savedAt     = currentTimeMillis().toString(),
             )
+            Unit
         }
 
     suspend fun removeBookmark(articleId: String) =
         withContext(Dispatchers.Default) {
             queries.deleteById(articleId)
+            Unit
         }
 
     suspend fun isBookmarked(articleId: String): Boolean =

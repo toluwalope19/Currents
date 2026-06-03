@@ -59,6 +59,7 @@ class ArticleLocalDataSource(private val database: CurrentsDatabase) {
     suspend fun clearArticles() =
         withContext(Dispatchers.Default) {
             queries.deleteAll()
+            Unit
         }
 
     suspend fun deleteStale(olderThanMillis: Long) =
