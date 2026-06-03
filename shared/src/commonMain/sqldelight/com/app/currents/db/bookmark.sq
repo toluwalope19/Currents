@@ -1,0 +1,38 @@
+CREATE TABLE BookmarkEntity (
+    id           TEXT NOT NULL PRIMARY KEY,
+    title        TEXT NOT NULL,
+    description  TEXT NOT NULL,
+    content      TEXT,
+    url          TEXT NOT NULL,
+    imageUrl     TEXT,
+    source       TEXT NOT NULL,
+    author       TEXT,
+    category     TEXT NOT NULL,
+    publishedAt  TEXT NOT NULL,
+    isBreaking   INTEGER NOT NULL DEFAULT 0,
+    isLive       INTEGER NOT NULL DEFAULT 0,
+    savedAt      TEXT NOT NULL
+);
+
+insertBookmark:
+INSERT OR REPLACE INTO BookmarkEntity(
+    id, title, description, content, url,
+    imageUrl, source, author, category,
+    publishedAt, isBreaking, isLive, savedAt
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectAll:
+SELECT * FROM BookmarkEntity
+ORDER BY savedAt DESC;
+
+selectById:
+SELECT * FROM BookmarkEntity
+WHERE id = ?;
+
+deleteById:
+DELETE FROM BookmarkEntity
+WHERE id = ?;
+
+exists:
+SELECT COUNT(*) FROM BookmarkEntity
+WHERE id = ?;

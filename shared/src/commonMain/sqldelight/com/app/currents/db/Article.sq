@@ -1,0 +1,42 @@
+CREATE TABLE ArticleEntity (
+    id           TEXT NOT NULL PRIMARY KEY,
+    title        TEXT NOT NULL,
+    description  TEXT NOT NULL,
+    content      TEXT,
+    url          TEXT NOT NULL,
+    imageUrl     TEXT,
+    source       TEXT NOT NULL,
+    author       TEXT,
+    category     TEXT NOT NULL,
+    publishedAt  TEXT NOT NULL,
+    isBreaking   INTEGER NOT NULL DEFAULT 0,
+    isLive       INTEGER NOT NULL DEFAULT 0,
+    fetchedAt    INTEGER NOT NULL DEFAULT 0
+);
+
+insertArticle:
+INSERT OR REPLACE INTO ArticleEntity(
+    id, title, description, content, url,
+    imageUrl, source, author, category,
+    publishedAt, isBreaking, isLive, fetchedAt
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectAll:
+SELECT * FROM ArticleEntity
+ORDER BY publishedAt DESC;
+
+selectByCategory:
+SELECT * FROM ArticleEntity
+WHERE category = ?
+ORDER BY publishedAt DESC;
+
+selectById:
+SELECT * FROM ArticleEntity
+WHERE id = ?;
+
+deleteAll:
+DELETE FROM ArticleEntity;
+
+deleteStale:
+DELETE FROM ArticleEntity
+WHERE fetchedAt < ?;
