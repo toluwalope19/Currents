@@ -22,10 +22,15 @@ kotlin {
 dependencies {
     implementation(projects.shared)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.material3)
     implementation(libs.compose.uiToolingPreview)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
     debugImplementation(libs.compose.uiTooling)
 }
-
 android {
     namespace = "com.app.currents"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
