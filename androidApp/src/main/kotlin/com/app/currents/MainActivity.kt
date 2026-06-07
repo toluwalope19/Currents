@@ -13,6 +13,7 @@ import com.app.currents.di.appModules
 import com.app.currents.ui.App
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 class MainActivity : ComponentActivity() {
@@ -26,6 +27,7 @@ class MainActivity : ComponentActivity() {
             modules(
                 module {
                     single { AppConfig(newsApiKey = BuildConfig.NEWS_API_KEY) }
+                    single(named("newsApiKey")) { BuildConfig.NEWS_API_KEY }
                     single { com.app.currents.data.local.DatabaseFactory(androidContext()) }
                     single { DataStoreFactory(androidContext()) }
                 },
