@@ -19,6 +19,12 @@ kotlin {
             isStatic = true
         }
     }
+
+    sourceSets {
+        commonMain {
+            resources.srcDirs("src/commonMain/composeResources")
+        }
+    }
     
     androidLibrary {
        namespace = "com.app.currents.shared"
@@ -35,6 +41,8 @@ kotlin {
            isIncludeAndroidResources = true
        }
     }
+
+
 
     sourceSets {
 
@@ -107,6 +115,13 @@ kotlin {
         }
     }
 }
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.app.currents.shared.generated.resources"
+    generateResClass = always
+}
+
 
 sqldelight {
     databases {
