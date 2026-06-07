@@ -54,6 +54,7 @@ kotlin {
             implementation(libs.compose.ui)
             implementation(libs.compose.components.resources)
             implementation(libs.compose.uiToolingPreview)
+            implementation(libs.datastore.preferences.core)
 
             // Lifecycle
             implementation(libs.androidx.lifecycle.viewmodelCompose)
@@ -84,6 +85,8 @@ kotlin {
             // Coil 3
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
+
+            implementation(libs.okio)
         }
 
         androidMain.dependencies {

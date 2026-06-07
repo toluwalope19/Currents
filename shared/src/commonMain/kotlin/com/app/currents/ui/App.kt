@@ -13,13 +13,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.app.currents.presentation.splash.SplashViewModel
 import com.app.currents.ui.components.CurrentsNavBar
 import com.app.currents.ui.components.NavTab
+import com.app.currents.ui.screens.splash.SplashScreen
 import com.app.currents.ui.theme.CurrentsTheme
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun App() {
@@ -37,6 +41,9 @@ fun App() {
 fun AppNavHost() {
     val navController = rememberNavController()
     var selectedTab by rememberSaveable { mutableStateOf(NavTab.Home) }
+    val splashViewModel = koinViewModel<SplashViewModel>()
+    val isOnboardingComplete by splashViewModel.isOnboardingComplete.collectAsStateWithLifecycle()
+
 
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
@@ -76,8 +83,23 @@ fun AppNavHost() {
         Box(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
             NavHost(
                 navController = navController,
-                startDestination = Screen.Home.route,
+                startDestination = Screen.Splash.route,
             ) {
+                composable(Screen.Splash.route) {
+                    SplashScreen(
+                        isOnboardingComplete = isOnboardingComplete,
+                        onSplashComplete = { showOnboarding ->
+                            val destination = if (showOnboarding) Screen.Onboarding.route
+                            else Screen.Home.route
+                            navController.navigate(destination) {
+                                popUpTo(Screen.Splash.route) { inclusive = true }
+                            }
+                        },
+                    )
+                }
+                composable(Screen.Onboarding.route) {
+                    PlaceholderScreen("Onboarding")
+                }
                 composable(Screen.Home.route) {
                     PlaceholderScreen("Home")
                 }

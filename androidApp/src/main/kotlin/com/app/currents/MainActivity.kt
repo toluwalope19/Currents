@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.Surface
+import com.app.currents.data.local.DataStoreFactory
 import com.app.currents.di.AppConfig
 import com.app.currents.di.appModules
 import com.app.currents.ui.App
@@ -26,6 +27,7 @@ class MainActivity : ComponentActivity() {
                 module {
                     single { AppConfig(newsApiKey = BuildConfig.NEWS_API_KEY) }
                     single { com.app.currents.data.local.DatabaseFactory(androidContext()) }
+                    single { DataStoreFactory(androidContext()) }
                 },
                 *appModules.toTypedArray(),
             )

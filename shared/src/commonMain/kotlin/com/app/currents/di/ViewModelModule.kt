@@ -6,6 +6,7 @@ import com.app.currents.presentation.explore.ExploreViewModel
 import com.app.currents.presentation.home.HomeViewModel
 import com.app.currents.presentation.profile.ProfileViewModel
 import com.app.currents.presentation.search.SearchViewModel
+import com.app.currents.presentation.splash.SplashViewModel
 import org.koin.compose.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -16,6 +17,9 @@ val viewModelModule = module {
             getByCategoryUseCase = get(),
             refreshFeedUseCase = get(),
         )
+    }
+    viewModel {
+        SplashViewModel(userPreferences = get())
     }
     viewModel {
         ExploreViewModel(

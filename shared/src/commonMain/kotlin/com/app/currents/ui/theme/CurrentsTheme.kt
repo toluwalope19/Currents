@@ -21,11 +21,13 @@ fun CurrentsTheme(
         CurrentsLightColorScheme
     }
 
+    val fontFamily = interFontFamily()
+
     CompositionLocalProvider(LocalDarkTheme provides darkTheme) {
         MaterialTheme(
             colorScheme = colorScheme,
-            typography  = CurrentsTypography,
-            content     = content,
+            typography = currentsTypography(fontFamily),
+            content = content,
         )
     }
 }
