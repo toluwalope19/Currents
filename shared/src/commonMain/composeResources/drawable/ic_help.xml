@@ -6,13 +6,13 @@
     android:viewportHeight="24">
     <path
         android:pathData="M 3.0,12.0 A 9.0,9.0 0 1,0 21.0,12.0 A 9.0,9.0 0 1,0 3.0,12.0 Z"
-        android:fillColor="@android:color/transparent"
+        android:fillColor="#00000000"
         android:strokeColor="#FFFFFFFF"
         android:strokeWidth="1.8"
         />
     <path
         android:pathData="M9.3 9.3a2.7 2.7 0 0 1 5.2 1c0 1.8-2.5 2-2.5 3.2"
-        android:fillColor="@android:color/transparent"
+        android:fillColor="#00000000"
         android:strokeColor="#FFFFFFFF"
         android:strokeWidth="1.8"
         android:strokeLineCap="round"

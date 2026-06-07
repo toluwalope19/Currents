@@ -1,15 +1,24 @@
 package com.app.currents.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.app.currents.ui.components.CurrentsNavBar
+import com.app.currents.ui.components.NavTab
 import com.app.currents.ui.theme.CurrentsTheme
 
 @Composable
@@ -23,31 +32,71 @@ fun App() {
     }
 }
 
+
 @Composable
 fun AppNavHost() {
     val navController = rememberNavController()
+    var selectedTab by rememberSaveable { mutableStateOf(NavTab.Home) }
 
-    NavHost(
-        navController = navController,
-        startDestination = Screen.Home.route,
-    ) {
-        composable(Screen.Home.route) {
-            PlaceholderScreen("Home")
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = backStackEntry?.destination?.route
+
+    val showNavBar = currentRoute in listOf(
+        Screen.Home.route,
+        Screen.Explore.route,
+        Screen.Search.route,
+        Screen.Bookmarks.route,
+        Screen.Profile.route,
+    )
+
+    Scaffold(
+        bottomBar = {
+            if (showNavBar) {
+                CurrentsNavBar(
+                    selectedTab = selectedTab,
+                    onTabSelected = { tab ->
+                        selectedTab = tab
+                        val route = when (tab) {
+                            NavTab.Home      -> Screen.Home.route
+                            NavTab.Explore   -> Screen.Explore.route
+                            NavTab.Search    -> Screen.Search.route
+                            NavTab.Bookmarks -> Screen.Bookmarks.route
+                            NavTab.Profile   -> Screen.Profile.route
+                        }
+                        navController.navigate(route) {
+                            popUpTo(Screen.Home.route) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    },
+                )
+            }
         }
-        composable(Screen.Explore.route) {
-            PlaceholderScreen("Explore")
-        }
-        composable(Screen.Search.route) {
-            PlaceholderScreen("Search")
-        }
-        composable(Screen.Bookmarks.route) {
-            PlaceholderScreen("Bookmarks")
-        }
-        composable(Screen.Profile.route) {
-            PlaceholderScreen("Profile")
-        }
-        composable(Screen.Article.route) {
-            PlaceholderScreen("Article")
+    ) { innerPadding ->
+        Box(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
+            NavHost(
+                navController = navController,
+                startDestination = Screen.Home.route,
+            ) {
+                composable(Screen.Home.route) {
+                    PlaceholderScreen("Home")
+                }
+                composable(Screen.Explore.route) {
+                    PlaceholderScreen("Explore")
+                }
+                composable(Screen.Search.route) {
+                    PlaceholderScreen("Search")
+                }
+                composable(Screen.Bookmarks.route) {
+                    PlaceholderScreen("Bookmarks")
+                }
+                composable(Screen.Profile.route) {
+                    PlaceholderScreen("Profile")
+                }
+                composable(Screen.Article.route) {
+                    PlaceholderScreen("Article")
+                }
+            }
         }
     }
 }
