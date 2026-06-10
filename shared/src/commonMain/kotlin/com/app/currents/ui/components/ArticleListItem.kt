@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,10 +30,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.app.currents.domain.model.Article
 import com.app.currents.domain.model.Category
+import com.app.currents.ui.theme.CurrentsIcons
 import com.app.currents.ui.theme.CurrentsTheme
 import com.app.currents.ui.theme.toColor
+import com.app.currents.util.formatRelativeTime
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun ArticleListItem(
@@ -76,7 +81,7 @@ fun ArticleListItem(
             )
 
             Text(
-                text = "${article.source} · ${article.publishedAt}",
+                text = "${article.source} · ${formatRelativeTime(article.publishedAt)}",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Normal,
@@ -90,28 +95,36 @@ fun ArticleListItem(
                 .clip(RoundedCornerShape(10.dp))
                 .background(MaterialTheme.colorScheme.surfaceVariant),
         ) {
-            if (article.imageUrl != null) {
-                AsyncImage(
-                    model = article.imageUrl,
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.size(80.dp),
-                )
-            } else {
-                // Fallback gradient
-                Box(
-                    modifier = Modifier
-                        .size(80.dp)
-                        .background(
-                            Brush.linearGradient(
-                                colors = listOf(
-                                    article.category.toColor().copy(alpha = 0.6f),
-                                    Color(0xFF0A0A0A),
+
+            SubcomposeAsyncImage(
+                model = article.imageUrl,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(80.dp),
+                error = {
+                    Box(
+                        modifier = Modifier
+                            .size(80.dp)
+                            .background(
+                                Brush.linearGradient(
+                                    colors = listOf(
+                                        article.category.toColor().copy(alpha = 0.6f),
+                                        article.category.toColor().copy(alpha = 0.2f),
+                                    )
                                 )
-                            )
+                            ),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            painter = painterResource(CurrentsIcons.Globe),
+                            contentDescription = null,
+                            tint = Color.White.copy(alpha = 0.5f),
+                            modifier = Modifier.size(24.dp),
                         )
-                )
-            }
+                    }
+                },
+            )
+
         }
     }
 }

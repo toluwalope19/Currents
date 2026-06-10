@@ -29,6 +29,9 @@ dependencies {
     implementation(libs.compose.uiToolingPreview)
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.ktor)
+    implementation(libs.ktor.client.core)
     debugImplementation(libs.compose.uiTooling)
 }
 android {

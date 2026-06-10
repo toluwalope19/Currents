@@ -33,12 +33,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.app.currents.domain.model.Article
 import com.app.currents.domain.model.Category
 import com.app.currents.ui.theme.Accent
 import com.app.currents.ui.theme.CurrentsIcons
 import com.app.currents.ui.theme.CurrentsTheme
 import com.app.currents.ui.theme.toColor
+import com.app.currents.util.formatRelativeTime
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -62,28 +64,34 @@ fun ArticleHeroCard(
             ),
     ) {
         // Background image
-        if (article.imageUrl != null) {
-            AsyncImage(
-                model = article.imageUrl,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize(),
-            )
-        } else {
-            // Fallback gradient using category color
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.linearGradient(
-                            colors = listOf(
-                                categoryColor.copy(alpha = 0.8f),
-                                Color(0xFF0A0A0A),
+        SubcomposeAsyncImage(
+            model = article.imageUrl,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize(),
+            error = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            Brush.linearGradient(
+                                colors = listOf(
+                                    article.category.toColor().copy(alpha = 0.6f),
+                                    article.category.toColor().copy(alpha = 0.2f),
+                                )
                             )
-                        )
+                        ),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        painter = painterResource(CurrentsIcons.Globe),
+                        contentDescription = null,
+                        tint = Color.White.copy(alpha = 0.5f),
+                        modifier = Modifier.size(24.dp),
                     )
-            )
-        }
+                }
+            },
+        )
 
         // Dark gradient overlay — text readability
         Box(
@@ -160,7 +168,7 @@ fun ArticleHeroCard(
             )
 
             Text(
-                text = "${article.source} · ${article.publishedAt}",
+                text = "${article.source} · ${formatRelativeTime(article.publishedAt)}",
                 color = Color.White.copy(alpha = 0.7f),
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Normal,

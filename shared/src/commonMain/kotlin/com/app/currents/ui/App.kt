@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.app.currents.presentation.splash.SplashViewModel
 import com.app.currents.ui.components.CurrentsNavBar
 import com.app.currents.ui.components.NavTab
+import com.app.currents.ui.screens.home.HomeScreen
 import com.app.currents.ui.screens.onboarding.OnboardingScreen
 import com.app.currents.ui.screens.splash.SplashScreen
 import com.app.currents.ui.theme.CurrentsTheme
@@ -32,15 +33,19 @@ fun App() {
     var darkTheme by remember { mutableStateOf(true) }
 
     CurrentsTheme(darkTheme = darkTheme) {
-        Surface {
-            AppNavHost()
-        }
+        AppNavHost(
+            darkTheme = darkTheme,
+            onThemeToggle = { darkTheme = !darkTheme },
+        )
     }
 }
 
 
 @Composable
-fun AppNavHost() {
+fun AppNavHost(
+    darkTheme: Boolean,
+    onThemeToggle: () -> Unit,
+){
     val navController = rememberNavController()
     var selectedTab by rememberSaveable { mutableStateOf(NavTab.Home) }
     val splashViewModel = koinViewModel<SplashViewModel>()
@@ -50,7 +55,7 @@ fun AppNavHost() {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
 
-    val showNavBar = currentRoute in listOf(
+    val showNavBar = currentRoute != null && currentRoute in listOf(
         Screen.Home.route,
         Screen.Explore.route,
         Screen.Search.route,
@@ -115,7 +120,13 @@ fun AppNavHost() {
                     )
                 }
                 composable(Screen.Home.route) {
-                    PlaceholderScreen("Home")
+                    HomeScreen(
+                        isDarkTheme = darkTheme,
+                        onThemeToggle = onThemeToggle,
+                        onArticleClick = { article ->
+                            navController.navigate(Screen.Article.createRoute(article.id))
+                        },
+                    )
                 }
                 composable(Screen.Explore.route) {
                     PlaceholderScreen("Explore")

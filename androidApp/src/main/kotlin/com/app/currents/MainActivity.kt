@@ -17,6 +17,11 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import coil3.ImageLoader
+import coil3.SingletonImageLoader
+import coil3.network.ktor3.KtorNetworkFetcherFactory
+import io.ktor.client.HttpClient
+import org.koin.android.ext.android.get
 
 class MainActivity : ComponentActivity() {
 
@@ -38,6 +43,14 @@ class MainActivity : ComponentActivity() {
                 },
                 *appModules.toTypedArray(),
             )
+        }
+
+        SingletonImageLoader.setSafe { context ->
+            ImageLoader.Builder(context)
+                .components {
+                    add(KtorNetworkFetcherFactory(get<HttpClient>()))
+                }
+                .build()
         }
 
         setContent {
