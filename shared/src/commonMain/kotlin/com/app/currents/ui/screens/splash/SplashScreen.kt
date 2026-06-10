@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,14 +48,14 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun SplashScreen(
     onSplashComplete: (showOnboarding: Boolean) -> Unit,
-    isOnboardingComplete: Boolean,
+    isOnboardingComplete: Boolean?,
 ) {
     val scale = remember { Animatable(0.8f) }
     val iconAlpha = remember { Animatable(0f) }
     val textAlpha = remember { Animatable(0f) }
     val textOffsetY = remember { Animatable(30f) }
     val bottomAlpha = remember { Animatable(0f) }
-    val shouldShowOnboarding = !isOnboardingComplete
+    val shouldShowOnboarding = remember { mutableStateOf<Boolean?>(null) }
 
     // Pulse ring
     val pulseTransition = rememberInfiniteTransition(label = "pulse")
@@ -88,6 +89,13 @@ fun SplashScreen(
         ),
         label = "progressOffset",
     )
+
+    LaunchedEffect(isOnboardingComplete) {
+        if (isOnboardingComplete != null && shouldShowOnboarding.value == null) {
+            shouldShowOnboarding.value = !(isOnboardingComplete)
+        }
+    }
+
 
     LaunchedEffect(Unit) {
         // Step 1 — icon scales + fades in
@@ -127,7 +135,8 @@ fun SplashScreen(
         )
 
         delay(8000)
-        onSplashComplete(shouldShowOnboarding)
+        val showOnboarding = shouldShowOnboarding.value ?: false
+        onSplashComplete(showOnboarding)
     }
 
     Box(

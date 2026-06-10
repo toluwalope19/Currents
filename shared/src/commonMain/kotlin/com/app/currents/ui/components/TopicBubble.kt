@@ -72,16 +72,16 @@ fun TopicBubble(
                 .scale(scale)
                 .clip(CircleShape)
                 .border(
-                    width = 2.dp,
-                    color = borderColor,
+                    width = if (isSelected) 2.dp else 1.dp,
+                    color = if (isSelected) Accent else categoryColor.copy(alpha = 0.4f),
                     shape = CircleShape,
                 )
                 .background(
                     Brush.radialGradient(
                         colors = listOf(
-                            categoryColor.copy(alpha = 0.7f),
-                            categoryColor.copy(alpha = 0.2f),
-                            Color(0xFF0A0A0A).copy(alpha = 0.8f),
+                            categoryColor.copy(alpha = 0.4f),
+                            categoryColor.copy(alpha = 0.15f),
+                            Color(0xFF0D0D12),
                         )
                     )
                 )

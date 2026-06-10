@@ -14,6 +14,6 @@ class SplashViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = false,
+            initialValue = null,
         )
 }

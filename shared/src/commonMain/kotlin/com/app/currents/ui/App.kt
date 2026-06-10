@@ -1,6 +1,7 @@
 package com.app.currents.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.app.currents.presentation.splash.SplashViewModel
 import com.app.currents.ui.components.CurrentsNavBar
 import com.app.currents.ui.components.NavTab
+import com.app.currents.ui.screens.onboarding.OnboardingScreen
 import com.app.currents.ui.screens.splash.SplashScreen
 import com.app.currents.ui.theme.CurrentsTheme
 import org.koin.compose.viewmodel.koinViewModel
@@ -57,6 +59,7 @@ fun AppNavHost() {
     )
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
             if (showNavBar) {
                 CurrentsNavBar(
@@ -98,7 +101,18 @@ fun AppNavHost() {
                     )
                 }
                 composable(Screen.Onboarding.route) {
-                    PlaceholderScreen("Onboarding")
+                    OnboardingScreen(
+                        onContinue = {
+                            navController.navigate(Screen.Home.route) {
+                                popUpTo(Screen.Onboarding.route) { inclusive = true }
+                            }
+                        },
+                        onSkip = {
+                            navController.navigate(Screen.Home.route) {
+                                popUpTo(Screen.Onboarding.route) { inclusive = true }
+                            }
+                        },
+                    )
                 }
                 composable(Screen.Home.route) {
                     PlaceholderScreen("Home")

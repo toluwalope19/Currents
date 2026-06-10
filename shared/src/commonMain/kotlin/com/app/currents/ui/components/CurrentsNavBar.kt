@@ -77,7 +77,6 @@ fun CurrentsNavBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
                 .windowInsetsPadding(WindowInsets.navigationBars)
                 .padding(horizontal = 8.dp),
             horizontalArrangement = Arrangement.SpaceAround,
