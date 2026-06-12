@@ -24,4 +24,7 @@ class ArticleLocalRepositoryImpl(
 
     override suspend fun clearArticles() =
         localDataSource.clearArticles()
+
+    override suspend fun hasArticles(): Boolean =
+        localDataSource.hasArticles()
 }

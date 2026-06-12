@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.app.currents.presentation.splash.SplashViewModel
 import com.app.currents.ui.components.CurrentsNavBar
 import com.app.currents.ui.components.NavTab
+import com.app.currents.ui.screens.explore.ExploreScreen
 import com.app.currents.ui.screens.home.HomeScreen
 import com.app.currents.ui.screens.onboarding.OnboardingScreen
 import com.app.currents.ui.screens.splash.SplashScreen
@@ -129,7 +130,11 @@ fun AppNavHost(
                     )
                 }
                 composable(Screen.Explore.route) {
-                    PlaceholderScreen("Explore")
+                    ExploreScreen(
+                        onArticleClick = { article ->
+                            navController.navigate(Screen.Article.createRoute(article.id))
+                        },
+                    )
                 }
                 composable(Screen.Search.route) {
                     PlaceholderScreen("Search")

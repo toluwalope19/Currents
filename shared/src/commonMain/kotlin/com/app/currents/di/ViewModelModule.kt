@@ -17,6 +17,7 @@ val viewModelModule = module {
             getFeedUseCase = get(),
             getByCategoryUseCase = get(),
             refreshFeedUseCase = get(),
+            hasCachedArticlesUseCase = get(),
         )
     }
     viewModel {

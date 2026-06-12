@@ -26,11 +26,11 @@ import androidx.compose.foundation.background
 fun BreakingBadge(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(100.dp))
+            .clip(RoundedCornerShape(8.dp))
             .border(
                 width = 1.dp,
                 color = CategoryBreaking,
-                shape = RoundedCornerShape(100.dp),
+                shape = RoundedCornerShape(8.dp),
             )
             .padding(horizontal = 8.dp, vertical = 4.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),

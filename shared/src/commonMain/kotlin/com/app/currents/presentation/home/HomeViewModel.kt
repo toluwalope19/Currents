@@ -6,6 +6,7 @@ import com.app.currents.domain.usecase.GetFeedUseCase
 import com.app.currents.domain.usecase.RefreshFeedUseCase
 import com.app.currents.presentation.base.BaseViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.currents.domain.usecase.HasCachedArticlesUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
@@ -16,12 +17,19 @@ class HomeViewModel(
     private val getFeedUseCase: GetFeedUseCase,
     private val getByCategoryUseCase: GetByCategoryUseCase,
     private val refreshFeedUseCase: RefreshFeedUseCase,
+    private val hasCachedArticlesUseCase: HasCachedArticlesUseCase,
 ) : BaseViewModel<HomeUiState, HomeUiEvent, HomeUiEffect>(HomeUiState()) {
 
     private var feedJob: Job? = null
+    private var hasLoadedOnce = false
+
 
     init {
-        loadFeed(Category.Top)
+        viewModelScope.launch {
+            val hasCached = hasCachedArticlesUseCase()
+            setState { copy(isLoading = !hasCached) }
+            loadFeed(Category.Top)
+        }
     }
 
     override fun onEvent(event: HomeUiEvent) {
@@ -40,7 +48,6 @@ class HomeViewModel(
 
     private fun loadFeed(category: Category) {
         feedJob?.cancel()
-        setState { copy(isLoading = articles.isEmpty(), error = null) }
 
         val flow = if (category == Category.Top) {
             getFeedUseCase()

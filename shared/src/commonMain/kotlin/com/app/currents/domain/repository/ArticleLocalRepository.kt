@@ -11,4 +11,5 @@ interface ArticleLocalRepository {
     suspend fun getArticleById(id: String): Article?
     suspend fun insertArticles(articles: List<Article>)
     suspend fun clearArticles()
+    suspend fun hasArticles(): Boolean
 }

@@ -49,6 +49,7 @@ fun ArticleHeroCard(
     onArticleClick: () -> Unit,
     onBookmarkClick: () -> Unit,
     modifier: Modifier = Modifier,
+    showLiveBadge: Boolean = false,
 ) {
     val categoryColor = article.category.toColor()
 
@@ -117,6 +118,7 @@ fun ArticleHeroCard(
                 .padding(16.dp),
         ) {
             // Top row — category chip + bookmark
+            if (showLiveBadge) LiveBadge()
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -207,6 +209,7 @@ private fun ArticleHeroCardDarkPreview() {
 private fun ArticleHeroCardBookmarkedDarkPreview() {
     CurrentsTheme(darkTheme = true) {
         ArticleHeroCard(
+            showLiveBadge = true,
             article = Article(
                 id = "2",
                 title = "Apple unveils on-device AI model that runs entirely offline",

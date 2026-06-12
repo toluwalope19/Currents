@@ -22,6 +22,7 @@ import coil3.SingletonImageLoader
 import coil3.network.ktor3.KtorNetworkFetcherFactory
 import io.ktor.client.HttpClient
 import org.koin.android.ext.android.get
+import org.koin.core.context.GlobalContext
 
 class MainActivity : ComponentActivity() {
 
@@ -32,17 +33,19 @@ class MainActivity : ComponentActivity() {
             navigationBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
         )
 
-        startKoin {
-            androidContext(this@MainActivity)
-            modules(
-                module {
-                    single { AppConfig(newsApiKey = BuildConfig.NEWS_API_KEY) }
-                    single(named("newsApiKey")) { BuildConfig.NEWS_API_KEY }
-                    single { com.app.currents.data.local.DatabaseFactory(androidContext()) }
-                    single { DataStoreFactory(androidContext()) }
-                },
-                *appModules.toTypedArray(),
-            )
+        if (GlobalContext.getOrNull() == null) {
+            startKoin {
+                androidContext(this@MainActivity)
+                modules(
+                    module {
+                        single { AppConfig(newsApiKey = BuildConfig.NEWS_API_KEY) }
+                        single(named("newsApiKey")) { BuildConfig.NEWS_API_KEY }
+                        single { com.app.currents.data.local.DatabaseFactory(androidContext()) }
+                        single { DataStoreFactory(androidContext()) }
+                    },
+                    *appModules.toTypedArray(),
+                )
+            }
         }
 
         SingletonImageLoader.setSafe { context ->

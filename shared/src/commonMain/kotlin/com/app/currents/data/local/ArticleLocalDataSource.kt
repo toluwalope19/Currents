@@ -62,6 +62,11 @@ class ArticleLocalDataSource(private val database: CurrentsDatabase) {
             Unit
         }
 
+    suspend fun hasArticles(): Boolean =
+        withContext(Dispatchers.Default) {
+            queries.selectAll().executeAsList().isNotEmpty()
+        }
+
     suspend fun deleteStale(olderThanMillis: Long) =
         withContext(Dispatchers.Default) {
             queries.deleteStale(olderThanMillis)
