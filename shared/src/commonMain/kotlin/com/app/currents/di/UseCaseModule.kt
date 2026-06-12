@@ -1,6 +1,7 @@
 package com.app.currents.di
 
 import com.app.currents.domain.usecase.AddBookmarkUseCase
+import com.app.currents.domain.usecase.GetArticleByIdUseCase
 import com.app.currents.domain.usecase.GetByCategoryUseCase
 import com.app.currents.domain.usecase.GetBookmarksUseCase
 import com.app.currents.domain.usecase.GetFeedUseCase
@@ -21,4 +22,5 @@ val useCaseModule = module {
     factory { RemoveBookmarkUseCase(get()) }
     factory { IsBookmarkedUseCase(get()) }
     factory { HasCachedArticlesUseCase(get()) }
+    factory { GetArticleByIdUseCase(get()) }
 }

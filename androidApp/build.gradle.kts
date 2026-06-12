@@ -51,6 +51,13 @@ android {
             "NEWS_API_KEY",
             "\"${localProperties.getProperty("NEWS_API_KEY", "")}\""
         )
+
+        buildConfigField(
+            "String",
+            "CLAUDE_API_KEY",
+            "\"${localProperties.getProperty("CLAUDE_API_KEY", "")}\""
+        )
+
     }
 
     buildFeatures {

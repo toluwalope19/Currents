@@ -10,11 +10,11 @@ import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-fun MainViewController(newsApiKey: String) = run {
+fun MainViewController(newsApiKey: String,claudeApiKey: String) = run {
     startKoin {
         modules(
             module {
-                single { AppConfig(newsApiKey = newsApiKey) }
+                single { AppConfig(newsApiKey = newsApiKey,claudeApiKey = claudeApiKey,) }
                 single(named("newsApiKey")) { newsApiKey }
                 single { DatabaseFactory() }
                 single { DataStoreFactory() }

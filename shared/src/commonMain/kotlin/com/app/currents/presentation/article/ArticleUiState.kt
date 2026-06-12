@@ -12,10 +12,11 @@ data class ArticleUiState(
     val isSummaryLoading: Boolean = false,
     val isSummaryError: Boolean = false,
     val error: String? = null,
+    var isLoading: Boolean = false
 ) : UiState
 
 sealed interface ArticleUiEvent : UiEvent {
-    data class OnArticleLoaded(val article: Article) : ArticleUiEvent
+    data class OnArticleLoaded(val article: String) : ArticleUiEvent
     data object OnBookmarkToggled : ArticleUiEvent
     data object OnShareClicked : ArticleUiEvent
     data object OnReadFullArticleClicked : ArticleUiEvent

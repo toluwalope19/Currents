@@ -36,6 +36,8 @@ val viewModelModule = module {
             addBookmarkUseCase = get(),
             removeBookmarkUseCase = get(),
             isBookmarkedUseCase = get(),
+            getArticleByIdUseCase = get (),
+            appConfig = get(),
         )
     }
     viewModel {

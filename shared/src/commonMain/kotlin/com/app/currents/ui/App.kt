@@ -15,18 +15,25 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import androidx.savedstate.read
+import com.app.currents.domain.model.ArticleHolder
 import com.app.currents.presentation.splash.SplashViewModel
 import com.app.currents.ui.components.CurrentsNavBar
 import com.app.currents.ui.components.NavTab
+import com.app.currents.ui.screens.article.ArticleDetailScreen
 import com.app.currents.ui.screens.explore.ExploreScreen
 import com.app.currents.ui.screens.home.HomeScreen
 import com.app.currents.ui.screens.onboarding.OnboardingScreen
 import com.app.currents.ui.screens.splash.SplashScreen
 import com.app.currents.ui.theme.CurrentsTheme
+import com.app.currents.util.openUrl
+import com.app.currents.util.shareText
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -145,8 +152,17 @@ fun AppNavHost(
                 composable(Screen.Profile.route) {
                     PlaceholderScreen("Profile")
                 }
-                composable(Screen.Article.route) {
-                    PlaceholderScreen("Article")
+                composable(
+                    route = Screen.Article.route,
+                    arguments = listOf(
+                        navArgument("articleId") { type = NavType.StringType }
+                    ),
+                ) { backStackEntry ->
+                    val articleId = backStackEntry.arguments?.read { getString("articleId") } ?: return@composable
+                    ArticleDetailScreen(
+                        articleId = articleId,
+                        onBack = { navController.popBackStack() },
+                    )
                 }
             }
         }

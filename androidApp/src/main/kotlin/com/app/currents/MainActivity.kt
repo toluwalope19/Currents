@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                 androidContext(this@MainActivity)
                 modules(
                     module {
-                        single { AppConfig(newsApiKey = BuildConfig.NEWS_API_KEY) }
+                        single { AppConfig(newsApiKey = BuildConfig.NEWS_API_KEY,  claudeApiKey = BuildConfig.CLAUDE_API_KEY,) }
                         single(named("newsApiKey")) { BuildConfig.NEWS_API_KEY }
                         single { com.app.currents.data.local.DatabaseFactory(androidContext()) }
                         single { DataStoreFactory(androidContext()) }

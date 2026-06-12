@@ -16,3 +16,7 @@ data class Article(
     val isBreaking: Boolean = false,
     val isLive: Boolean = false,
 )
+
+object ArticleHolder {
+    var article: Article? = null
+}

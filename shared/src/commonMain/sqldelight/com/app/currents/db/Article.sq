@@ -31,8 +31,7 @@ WHERE category = ?
 ORDER BY publishedAt DESC;
 
 selectById:
-SELECT * FROM ArticleEntity
-WHERE id = ?;
+SELECT * FROM ArticleEntity WHERE id = :id;
 
 deleteAll:
 DELETE FROM ArticleEntity;
