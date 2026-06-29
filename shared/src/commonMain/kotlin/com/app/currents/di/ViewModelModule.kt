@@ -54,7 +54,6 @@ val viewModelModule = module {
     }
     viewModel {
         ProfileViewModel(
-            getBookmarksUseCase = get(),
         )
     }
 }

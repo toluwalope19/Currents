@@ -5,22 +5,39 @@ import com.app.currents.presentation.base.UiEffect
 import com.app.currents.presentation.base.UiEvent
 import com.app.currents.presentation.base.UiState
 
+
 data class ProfileUiState(
-    val isDarkMode: Boolean = true,
-    val selectedCategories: List<Category> = emptyList(),
-    val articlesRead: Int = 0,
-    val bookmarksCount: Int = 0,
-    val appVersion: String = "1.0.0",
+    val name: String = "Alex Rivera",
+    val email: String = "alex.rivera@email.com",
+    val following: Int = 48,
+    val saved: Int = 12,
+    val dayStreak: Int = 7,
+    val interests: List<Category> = listOf(
+        Category.Technology, Category.Sports, Category.Health,
+        Category.World, Category.Business,
+    ),
+    val notificationsEnabled: Boolean = true,
+    val isDarkTheme: Boolean = true,
 ) : UiState
 
 sealed interface ProfileUiEvent : UiEvent {
-    data object OnDarkModeToggled : ProfileUiEvent
-    data class OnCategoryToggled(val category: Category) : ProfileUiEvent
-    data object OnClearBookmarks : ProfileUiEvent
-    data object OnAboutClicked : ProfileUiEvent
+    data object OnEditProfile : ProfileUiEvent
+    data object OnToggleNotifications : ProfileUiEvent
+    data class OnThemeToggle(val isDark: Boolean) : ProfileUiEvent
+    data object OnManageInterests : ProfileUiEvent
+    data object OnReadingHistory : ProfileUiEvent
+    data object OnSavedForOffline : ProfileUiEvent
+    data object OnTextSize : ProfileUiEvent
+    data object OnRegionLanguage : ProfileUiEvent
+    data object OnPrivacyData : ProfileUiEvent
+    data object OnHelpSupport : ProfileUiEvent
+    data object OnSignOut : ProfileUiEvent
+    data object OnUpgrade : ProfileUiEvent
+    data object OnSettings : ProfileUiEvent
 }
 
 sealed interface ProfileUiEffect : UiEffect {
-    data object ShowClearBookmarksConfirmation : ProfileUiEffect
-    data object NavigateToAbout : ProfileUiEffect
+    data object NavigateToOnboarding : ProfileUiEffect
+    data object ShowEditProfile : ProfileUiEffect
+    data object ShowComingSoon : ProfileUiEffect
 }

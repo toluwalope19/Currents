@@ -8,46 +8,23 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+
 class ProfileViewModel(
-    private val getBookmarksUseCase: GetBookmarksUseCase,
-) : BaseViewModel<ProfileUiState, ProfileUiEvent, ProfileUiEffect>(ProfileUiState()) {
-
-    init {
-        observeBookmarksCount()
-    }
-
+) : BaseViewModel<ProfileUiState, ProfileUiEvent, ProfileUiEffect>(
+    initialState = ProfileUiState(),
+) {
     override fun onEvent(event: ProfileUiEvent) {
         when (event) {
-            ProfileUiEvent.OnDarkModeToggled -> {
-                setState { copy(isDarkMode = !isDarkMode) }
-            }
-            is ProfileUiEvent.OnCategoryToggled -> toggleCategory(event.category)
-            ProfileUiEvent.OnClearBookmarks -> {
-                sendEffect(ProfileUiEffect.ShowClearBookmarksConfirmation)
-            }
-            ProfileUiEvent.OnAboutClicked -> {
-                sendEffect(ProfileUiEffect.NavigateToAbout)
-            }
+            ProfileUiEvent.OnToggleNotifications ->
+                setState { copy(notificationsEnabled = !notificationsEnabled) }
+            is ProfileUiEvent.OnThemeToggle ->
+                setState { copy(isDarkTheme = event.isDark) }
+            ProfileUiEvent.OnSignOut ->
+                sendEffect(ProfileUiEffect.NavigateToOnboarding)
+            ProfileUiEvent.OnEditProfile ->
+                sendEffect(ProfileUiEffect.ShowEditProfile)
+            // All others are stubs for now
+            else -> sendEffect(ProfileUiEffect.ShowComingSoon)
         }
-    }
-
-    private fun toggleCategory(category: Category) {
-        setState {
-            val updated = if (selectedCategories.contains(category)) {
-                selectedCategories - category
-            } else {
-                selectedCategories + category
-            }
-            copy(selectedCategories = updated)
-        }
-    }
-
-    private fun observeBookmarksCount() {
-        getBookmarksUseCase()
-            .onEach { bookmarks ->
-                setState { copy(bookmarksCount = bookmarks.size) }
-            }
-            .catch { }
-            .launchIn(viewModelScope)
     }
 }

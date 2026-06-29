@@ -87,6 +87,8 @@ kotlin {
             implementation(libs.coil.network.ktor)
 
             implementation(libs.okio)
+
+            implementation(libs.accompanist.systemuicontroller)
         }
 
         androidMain.dependencies {

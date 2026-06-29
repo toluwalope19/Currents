@@ -28,6 +28,7 @@ import com.app.currents.ui.bookmarks.BookmarksScreen
 import io.ktor.http.decodeURLQueryComponent
 import com.app.currents.ui.components.CurrentsNavBar
 import com.app.currents.ui.components.NavTab
+import com.app.currents.ui.profile.ProfileScreen
 import com.app.currents.ui.screens.article.ArticleDetailScreen
 import com.app.currents.ui.screens.explore.ExploreScreen
 import com.app.currents.ui.screens.home.HomeScreen
@@ -35,6 +36,7 @@ import com.app.currents.ui.screens.onboarding.OnboardingScreen
 import com.app.currents.ui.screens.search.SearchScreen
 import com.app.currents.ui.screens.splash.SplashScreen
 import com.app.currents.ui.theme.CurrentsTheme
+import com.app.currents.util.SystemBars
 import com.app.currents.util.openUrl
 import com.app.currents.util.shareText
 import kotlinx.serialization.json.Json
@@ -45,6 +47,7 @@ fun App() {
     var darkTheme by remember { mutableStateOf(true) }
 
     CurrentsTheme(darkTheme = darkTheme) {
+        SystemBars(darkTheme = darkTheme)
         AppNavHost(
             darkTheme = darkTheme,
             onThemeToggle = { darkTheme = !darkTheme },
@@ -162,7 +165,16 @@ fun AppNavHost(
                     )
                 }
                 composable(Screen.Profile.route) {
-                    PlaceholderScreen("Profile")
+                    ProfileScreen(
+                        isDarkTheme = darkTheme,
+                        onThemeToggle = onThemeToggle,
+                        onSignOut = {
+                            navController.navigate(Screen.Onboarding.route) {
+                                popUpTo(0) { inclusive = true }
+                            }
+                        },
+                    )
+
                 }
                 composable(
                     route = Screen.Article.route,

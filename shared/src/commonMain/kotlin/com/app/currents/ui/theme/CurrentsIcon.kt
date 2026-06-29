@@ -52,7 +52,7 @@ object CurrentsIcons {
     val Edit         = Res.drawable.ic_edit
     val External     = Res.drawable.ic_external
     val Fire         = Res.drawable.ic_fire
-    val Gear         = Res.drawable.ic_gear
+    val Settings         = Res.drawable.ic_gear
     val Globe        = Res.drawable.ic_globe
     val Grid         = Res.drawable.ic_grid
     val GridFill     = Res.drawable.ic_grid_fill
@@ -77,4 +77,8 @@ object CurrentsIcons {
     val Play         = Res.drawable.ic_play
     val Close        = Res.drawable.ic_close
     val Delete = Res.drawable.ic_delete
+    val History     = Res.drawable.ic_clock
+    val Offline     = Res.drawable.ic_download
+    val Appearance  = Res.drawable.ic_sun
+    val Privacy     = Res.drawable.ic_shield
 }

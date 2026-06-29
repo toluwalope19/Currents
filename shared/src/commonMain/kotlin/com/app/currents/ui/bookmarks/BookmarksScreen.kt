@@ -84,10 +84,13 @@ private fun BookmarksContent(
         Spacer(Modifier.height(16.dp))
 
         // Stats row
-        Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
-            StatItem(value = uiState.savedCount.toString(), label = "Saved")
-            StatItem(value = uiState.offlineCount.toString(), label = "Offline")
-            StatItem(value = uiState.unreadCount.toString(), label = "Unread")
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            StatItem(modifier = Modifier.weight(1f), value = uiState.savedCount.toString(), label = "Saved")
+            StatItem(modifier = Modifier.weight(1f), value = uiState.offlineCount.toString(), label = "Offline")
+            StatItem(modifier = Modifier.weight(1f), value = uiState.unreadCount.toString(), label = "Unread")
         }
 
         Spacer(Modifier.height(16.dp))
@@ -228,17 +231,30 @@ private fun SwipeableBookmarkCard(
 }
 
 @Composable
-private fun StatItem(value: String, label: String) {
-    Column {
+private fun StatItem(
+    value: String,
+    label: String,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .padding(horizontal = 14.dp, vertical = 14.dp),
+    ) {
         Text(
             text = value,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.ExtraBold,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
         )
+        Spacer(Modifier.height(2.dp))
         Text(
             text = label,
-            fontSize = 12.sp,
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Normal,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
