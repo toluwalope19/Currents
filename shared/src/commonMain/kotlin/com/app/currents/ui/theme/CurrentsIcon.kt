@@ -10,6 +10,7 @@ import com.app.currents.shared.generated.resources.ic_check
 import com.app.currents.shared.generated.resources.ic_chevron_right
 import com.app.currents.shared.generated.resources.ic_clock
 import com.app.currents.shared.generated.resources.ic_close
+import com.app.currents.shared.generated.resources.ic_delete
 import com.app.currents.shared.generated.resources.ic_download
 import com.app.currents.shared.generated.resources.ic_edit
 import com.app.currents.shared.generated.resources.ic_external
@@ -75,4 +76,5 @@ object CurrentsIcons {
     val Live         = Res.drawable.ic_live
     val Play         = Res.drawable.ic_play
     val Close        = Res.drawable.ic_close
+    val Delete = Res.drawable.ic_delete
 }

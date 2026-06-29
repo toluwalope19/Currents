@@ -48,9 +48,8 @@ val viewModelModule = module {
     }
     viewModel {
         BookmarksViewModel(
-            getBookmarksUseCase = get(),
-            removeBookmarkUseCase = get(),
-            addBookmarkUseCase = get(),
+            getBookmarks = get(),
+            removeBookmark = get(),
         )
     }
     viewModel {

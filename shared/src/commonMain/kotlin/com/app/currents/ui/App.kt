@@ -24,6 +24,7 @@ import androidx.navigation.navArgument
 import androidx.savedstate.read
 import com.app.currents.domain.model.Article
 import com.app.currents.presentation.splash.SplashViewModel
+import com.app.currents.ui.bookmarks.BookmarksScreen
 import io.ktor.http.decodeURLQueryComponent
 import com.app.currents.ui.components.CurrentsNavBar
 import com.app.currents.ui.components.NavTab
@@ -154,7 +155,11 @@ fun AppNavHost(
                     )
                 }
                 composable(Screen.Bookmarks.route) {
-                    PlaceholderScreen("Bookmarks")
+                    BookmarksScreen(
+                        onArticleClick = { article ->
+                            navController.navigate(Screen.Article.createRoute(article.id))
+                        },
+                    )
                 }
                 composable(Screen.Profile.route) {
                     PlaceholderScreen("Profile")
