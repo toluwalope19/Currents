@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -45,7 +46,9 @@ import com.app.currents.presentation.explore.ExploreUiState
 import com.app.currents.presentation.explore.ExploreViewModel
 import com.app.currents.ui.components.ArticleHeroCard
 import com.app.currents.ui.components.ArticleListItemSkeleton
+import com.app.currents.ui.components.ExploreFilter
 import com.app.currents.ui.components.ExploreGridCard
+import com.app.currents.ui.components.FilterBottomSheet
 import com.app.currents.ui.components.HeroCardSkeleton
 import com.app.currents.ui.theme.CurrentsIcons
 import com.app.currents.ui.theme.CurrentsTheme
@@ -131,6 +134,8 @@ private fun ExploreContent(
     val heroArticle = articles.firstOrNull()
     val gridArticles = if (articles.size > 1) articles.drop(1) else emptyList()
     val mosaicRows = remember(gridArticles) { buildMosaicRows(gridArticles) }
+    var showFilterSheet by remember { mutableStateOf(false) }
+    var currentFilter by remember { mutableStateOf(ExploreFilter()) }
 
     val liveArticles = remember(articles) {
         articles.filter { !it.isBreaking }.take(8)
@@ -236,7 +241,18 @@ private fun ExploreContent(
                 .background(MaterialTheme.colorScheme.background.copy(alpha = 0.95f))
                 .statusBarsPadding(),
         ) {
-            ExploreTopBar(onFilterClick = {})
+            ExploreTopBar(onFilterClick = {
+                showFilterSheet = true
+            })
+        }
+
+        if (showFilterSheet) {
+            FilterBottomSheet(
+                filter = currentFilter,
+                onFilterChanged = { currentFilter = it },
+                onDismiss = { showFilterSheet = false },
+                onApply = { showFilterSheet = false },
+            )
         }
     }
 }

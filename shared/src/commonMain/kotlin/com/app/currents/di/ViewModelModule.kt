@@ -42,7 +42,8 @@ val viewModelModule = module {
     }
     viewModel {
         SearchViewModel(
-            searchArticlesUseCase = get(),
+            searchArticles = get(),
+            getFeed = get()
         )
     }
     viewModel {

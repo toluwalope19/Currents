@@ -16,7 +16,8 @@ data class ArticleUiState(
 ) : UiState
 
 sealed interface ArticleUiEvent : UiEvent {
-    data class OnArticleLoaded(val article: String) : ArticleUiEvent
+    data class OnArticleLoaded(val article: Article) : ArticleUiEvent
+    data class OnArticleLoadedById(val articleId: String) : ArticleUiEvent
     data object OnBookmarkToggled : ArticleUiEvent
     data object OnShareClicked : ArticleUiEvent
     data object OnReadFullArticleClicked : ArticleUiEvent

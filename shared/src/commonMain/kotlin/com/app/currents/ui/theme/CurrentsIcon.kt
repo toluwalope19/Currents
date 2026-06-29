@@ -9,6 +9,7 @@ import com.app.currents.shared.generated.resources.ic_bookmark_fill
 import com.app.currents.shared.generated.resources.ic_check
 import com.app.currents.shared.generated.resources.ic_chevron_right
 import com.app.currents.shared.generated.resources.ic_clock
+import com.app.currents.shared.generated.resources.ic_close
 import com.app.currents.shared.generated.resources.ic_download
 import com.app.currents.shared.generated.resources.ic_edit
 import com.app.currents.shared.generated.resources.ic_external
@@ -20,10 +21,12 @@ import com.app.currents.shared.generated.resources.ic_grid_fill
 import com.app.currents.shared.generated.resources.ic_help
 import com.app.currents.shared.generated.resources.ic_home
 import com.app.currents.shared.generated.resources.ic_home_fill
+import com.app.currents.shared.generated.resources.ic_live
 import com.app.currents.shared.generated.resources.ic_logout
 import com.app.currents.shared.generated.resources.ic_mic
 import com.app.currents.shared.generated.resources.ic_moon
 import com.app.currents.shared.generated.resources.ic_person
+import com.app.currents.shared.generated.resources.ic_play
 import com.app.currents.shared.generated.resources.ic_refresh
 import com.app.currents.shared.generated.resources.ic_search
 import com.app.currents.shared.generated.resources.ic_share
@@ -69,4 +72,7 @@ object CurrentsIcons {
     val TextSize     = Res.drawable.ic_text_size
     val Trash        = Res.drawable.ic_trash
     val Tune         = Res.drawable.ic_tune
+    val Live         = Res.drawable.ic_live
+    val Play         = Res.drawable.ic_play
+    val Close        = Res.drawable.ic_close
 }

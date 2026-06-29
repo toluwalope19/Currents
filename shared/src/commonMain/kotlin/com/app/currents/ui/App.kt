@@ -22,18 +22,21 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.savedstate.read
-import com.app.currents.domain.model.ArticleHolder
+import com.app.currents.domain.model.Article
 import com.app.currents.presentation.splash.SplashViewModel
+import io.ktor.http.decodeURLQueryComponent
 import com.app.currents.ui.components.CurrentsNavBar
 import com.app.currents.ui.components.NavTab
 import com.app.currents.ui.screens.article.ArticleDetailScreen
 import com.app.currents.ui.screens.explore.ExploreScreen
 import com.app.currents.ui.screens.home.HomeScreen
 import com.app.currents.ui.screens.onboarding.OnboardingScreen
+import com.app.currents.ui.screens.search.SearchScreen
 import com.app.currents.ui.screens.splash.SplashScreen
 import com.app.currents.ui.theme.CurrentsTheme
 import com.app.currents.util.openUrl
 import com.app.currents.util.shareText
+import kotlinx.serialization.json.Json
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -144,7 +147,11 @@ fun AppNavHost(
                     )
                 }
                 composable(Screen.Search.route) {
-                    PlaceholderScreen("Search")
+                    SearchScreen(
+                        onArticleClick = { article ->
+                            navController.navigate(Screen.Article.createRoute(article))
+                        },
+                    )
                 }
                 composable(Screen.Bookmarks.route) {
                     PlaceholderScreen("Bookmarks")
@@ -155,12 +162,25 @@ fun AppNavHost(
                 composable(
                     route = Screen.Article.route,
                     arguments = listOf(
-                        navArgument("articleId") { type = NavType.StringType }
+                        navArgument("articleId") { type = NavType.StringType },
+                        navArgument("articleJson") {
+                            type = NavType.StringType
+                            nullable = true
+                            defaultValue = null
+                        },
                     ),
                 ) { backStackEntry ->
-                    val articleId = backStackEntry.arguments?.read { getString("articleId") } ?: return@composable
+                    val articleId = backStackEntry.arguments?.read { getString("articleId") }
+                        ?: return@composable
+                    val articleJson = try {
+                        backStackEntry.arguments?.read { getString("articleJson") }
+                    } catch (_: Exception) { null }
+                    val article = articleJson?.let {
+                        Json.decodeFromString(Article.serializer(), it.decodeURLQueryComponent())
+                    }
                     ArticleDetailScreen(
                         articleId = articleId,
+                        article = article,
                         onBack = { navController.popBackStack() },
                     )
                 }
@@ -168,3 +188,4 @@ fun AppNavHost(
         }
     }
 }
+

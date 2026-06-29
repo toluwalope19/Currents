@@ -55,6 +55,7 @@ class ArticleViewModel(
     override fun onEvent(event: ArticleUiEvent) {
         when (event) {
             is ArticleUiEvent.OnArticleLoaded -> loadArticle(event.article)
+            is ArticleUiEvent.OnArticleLoadedById -> loadArticleById(event.articleId)
             ArticleUiEvent.OnBookmarkToggled -> toggleBookmark()
             ArticleUiEvent.OnShareClicked -> shareArticle()
             ArticleUiEvent.OnReadFullArticleClicked -> openFullArticle()
@@ -63,25 +64,29 @@ class ArticleViewModel(
         }
     }
 
-    private fun loadArticle(id: String) {
+    private fun loadArticleById(id: String) {
         viewModelScope.launch {
             setState { copy(isLoading = true) }
             val article = getArticleByIdUseCase(id)
             if (article != null) {
                 val bookmarked = isBookmarkedUseCase(article.id)
-                setState {
-                    copy(
-                        article = article,
-                        isBookmarked = bookmarked,
-                        isLoading = false,
-                    )
-                }
+                setState { copy(article = article, isBookmarked = bookmarked, isLoading = false) }
                 fetchAiSummary()
             } else {
                 setState { copy(isLoading = false, error = "Article not found") }
             }
         }
     }
+
+    private fun loadArticle(article: Article) {
+        viewModelScope.launch {
+            setState { copy(isLoading = true) }
+            val bookmarked = isBookmarkedUseCase(article.id)
+            setState { copy(article = article, isBookmarked = bookmarked, isLoading = false) }
+            fetchAiSummary()
+        }
+    }
+
 
     private fun fetchSummary(article: Article) {
         // AI summary via Claude API — wired in later

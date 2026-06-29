@@ -66,14 +66,18 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ArticleDetailScreen(
-    articleId: String,
+    articleId: String? = null,
+    article: Article? = null,
     onBack: () -> Unit,
     viewModel: ArticleViewModel = koinViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(articleId) {
-        viewModel.onEvent(ArticleUiEvent.OnArticleLoaded(articleId))
+    LaunchedEffect(articleId, article) {
+        when {
+            article != null -> viewModel.onEvent(ArticleUiEvent.OnArticleLoaded(article))
+            articleId != null -> viewModel.onEvent(ArticleUiEvent.OnArticleLoadedById(articleId))
+        }
     }
 
     LaunchedEffect(Unit) {

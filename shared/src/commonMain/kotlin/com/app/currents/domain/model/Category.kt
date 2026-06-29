@@ -1,5 +1,20 @@
 package com.app.currents.domain.model
 
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+
+private object CategorySerializer : KSerializer<Category> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Category", PrimitiveKind.STRING)
+    override fun serialize(encoder: Encoder, value: Category) = encoder.encodeString(value.apiValue)
+    override fun deserialize(decoder: Decoder): Category = Category.fromApiValue(decoder.decodeString())
+}
+
+@Serializable(with = CategorySerializer::class)
 sealed interface Category {
     val label: String
     val apiValue: String
