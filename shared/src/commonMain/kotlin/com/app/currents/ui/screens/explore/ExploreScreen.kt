@@ -50,6 +50,7 @@ import com.app.currents.ui.components.ExploreFilter
 import com.app.currents.ui.components.ExploreGridCard
 import com.app.currents.ui.components.FilterBottomSheet
 import com.app.currents.ui.components.HeroCardSkeleton
+import com.app.currents.ui.components.OfflineBanner
 import com.app.currents.ui.theme.CurrentsIcons
 import com.app.currents.ui.theme.CurrentsTheme
 import kotlinx.coroutines.delay
@@ -241,9 +242,12 @@ private fun ExploreContent(
                 .background(MaterialTheme.colorScheme.background.copy(alpha = 0.95f))
                 .statusBarsPadding(),
         ) {
-            ExploreTopBar(onFilterClick = {
-                showFilterSheet = true
-            })
+            Column {
+                ExploreTopBar(onFilterClick = {
+                    showFilterSheet = true
+                })
+                OfflineBanner(isVisible = uiState.isOffline)  // ← add here
+            }
         }
 
         if (showFilterSheet) {

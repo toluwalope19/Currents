@@ -38,6 +38,7 @@ import com.app.currents.ui.components.ArticleListItem
 import com.app.currents.ui.components.ArticleListItemSkeleton
 import com.app.currents.ui.components.BreakingNewsBanner
 import com.app.currents.ui.components.HeroCardSkeleton
+import com.app.currents.ui.components.OfflineBanner
 import com.app.currents.ui.components.StoryItem
 import com.app.currents.ui.components.StoryItemData
 import com.app.currents.ui.theme.Accent
@@ -125,6 +126,10 @@ private fun HomeContent(
                     onThemeToggle = onThemeToggle,
                     onBellClick = {},
                 )
+            }
+
+            item {
+                OfflineBanner(isVisible = uiState.isOffline)
             }
 
             // Stories row

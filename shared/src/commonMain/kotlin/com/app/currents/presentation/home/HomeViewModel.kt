@@ -7,6 +7,7 @@ import com.app.currents.domain.usecase.RefreshFeedUseCase
 import com.app.currents.presentation.base.BaseViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.currents.domain.usecase.HasCachedArticlesUseCase
+import com.app.currents.util.NetworkMonitor
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
@@ -18,13 +19,23 @@ class HomeViewModel(
     private val getByCategoryUseCase: GetByCategoryUseCase,
     private val refreshFeedUseCase: RefreshFeedUseCase,
     private val hasCachedArticlesUseCase: HasCachedArticlesUseCase,
+    private val networkMonitor: NetworkMonitor,
 ) : BaseViewModel<HomeUiState, HomeUiEvent, HomeUiEffect>(HomeUiState()) {
 
     private var feedJob: Job? = null
     private var hasLoadedOnce = false
 
 
+    private fun observeNetwork() {
+        viewModelScope.launch {
+            networkMonitor.isOnline.collect { online ->
+                setState { copy(isOffline = !online) }
+            }
+        }
+    }
+
     init {
+        observeNetwork()
         viewModelScope.launch {
             val hasCached = hasCachedArticlesUseCase()
             setState { copy(isLoading = !hasCached) }

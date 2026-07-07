@@ -18,6 +18,7 @@ val viewModelModule = module {
             getByCategoryUseCase = get(),
             refreshFeedUseCase = get(),
             hasCachedArticlesUseCase = get(),
+            networkMonitor = get()
         )
     }
     viewModel {
@@ -25,7 +26,7 @@ val viewModelModule = module {
     }
     viewModel {
         ExploreViewModel(
-            getByCategoryUseCase = get(),
+            getByCategoryUseCase = get(), networkMonitor = get()
         )
     }
     viewModel {

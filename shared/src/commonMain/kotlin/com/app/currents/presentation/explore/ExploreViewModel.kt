@@ -5,6 +5,7 @@ import com.app.currents.domain.model.Category
 import com.app.currents.domain.usecase.GetByCategoryUseCase
 import com.app.currents.presentation.base.BaseViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.currents.util.NetworkMonitor
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -16,12 +17,23 @@ import kotlinx.coroutines.launch
 
 class ExploreViewModel(
     private val getByCategoryUseCase: GetByCategoryUseCase,
+    private val networkMonitor: NetworkMonitor,
 ) : BaseViewModel<ExploreUiState, ExploreUiEvent, ExploreUiEffect>(ExploreUiState()) {
 
     private var categoryJob: Job? = null
 
     init {
+        observeNetwork()
         loadExplore()
+    }
+
+
+    private fun observeNetwork() {                         // ← add
+        viewModelScope.launch {
+            networkMonitor.isOnline.collect { online ->
+                setState { copy(isOffline = !online) }
+            }
+        }
     }
 
     override fun onEvent(event: ExploreUiEvent) {

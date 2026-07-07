@@ -10,6 +10,7 @@ data class ExploreUiState(
     val categories: List<Category> = Category.all,
     val selectedCategory: Category? = null,
     val articles: List<Article> = emptyList(),
+    val isOffline: Boolean = false,
     val isLoading: Boolean = false,
     val error: String? = null,
 ) : UiState
