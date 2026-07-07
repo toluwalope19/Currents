@@ -134,7 +134,7 @@ fun SplashScreen(
             animationSpec = tween(600),
         )
 
-        delay(8000)
+        delay(4000)
         val showOnboarding = shouldShowOnboarding.value ?: false
         onSplashComplete(showOnboarding)
     }

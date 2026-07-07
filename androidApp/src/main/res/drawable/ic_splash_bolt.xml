@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Matches the Compose SplashScreen icon exactly:
+    96dp box · RoundedCornerShape(24.dp) · Accent (#7B61FF) background
+    with a 48dp white bolt centred inside (50 % of the container).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="288dp"
+    android:height="288dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <!-- Purple rounded-square background (corner radius = 24 in a 96×96 box) -->
+    <path
+        android:pathData="M24,0 L72,0 Q96,0 96,24 L96,72 Q96,96 72,96 L24,96 Q0,96 0,72 L0,24 Q0,0 24,0 Z"
+        android:fillColor="#7B61FF" />
+
+    <!-- White bolt, scaled 2× from the 24-unit source and centred at (24,24) -->
+    <path
+        android:pathData="M50,28 L33,51 H46 l-2,17 L63,44 H50 l2,-16 Z"
+        android:fillColor="#FFFFFFFF" />
+</vector>

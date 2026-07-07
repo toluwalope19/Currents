@@ -31,6 +31,7 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.coil.compose)
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.coil.network.ktor)
     implementation(libs.ktor.client.core)
     debugImplementation(libs.compose.uiTooling)
