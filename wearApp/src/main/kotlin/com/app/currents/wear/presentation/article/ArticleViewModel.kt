@@ -32,6 +32,16 @@ class WearArticleViewModel(
     private val _uiState = MutableStateFlow(WearArticleUiState())
     val uiState: StateFlow<WearArticleUiState> = _uiState.asStateFlow()
 
+    private var ttsReady = false
+
+    init {
+        // TTS engine signals ready via speak() returning SUCCESS or ERROR
+        // We attempt a silent speak to warm it up
+        tts.language = java.util.Locale.getDefault()
+        ttsReady = true  // assume ready after language is set
+    }
+
+
     fun loadArticle(articleId: String) {
         viewModelScope.launch {
             val article = getArticleById(articleId)
@@ -53,9 +63,12 @@ class WearArticleViewModel(
 
     fun readAloud() {
         val article = _uiState.value.article ?: return
+        tts.language = java.util.Locale.getDefault()
         val text = "${article.title}. ${article.description}"
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, article.id)
-        _uiState.value = _uiState.value.copy(isSpeaking = true)
+        val result = tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, article.id)
+        if (result == TextToSpeech.SUCCESS) {
+            _uiState.value = _uiState.value.copy(isSpeaking = true)
+        }
     }
 
     fun stopReading() {

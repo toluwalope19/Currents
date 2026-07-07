@@ -20,7 +20,7 @@
             android:value="true" />
 
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".presentation.WearMainActivity"
             android:exported="true"
             android:taskAffinity=""
             android:theme="@android:style/Theme.DeviceDefault">

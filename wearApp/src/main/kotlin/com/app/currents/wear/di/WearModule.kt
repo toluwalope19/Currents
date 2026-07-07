@@ -11,11 +11,13 @@ import java.util.Locale
 
 val wearModule = module {
     single {
-        TextToSpeech(androidContext()) { status ->
+        var ttsInstance: TextToSpeech? = null
+        ttsInstance = TextToSpeech(androidContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
-                get<TextToSpeech>().language = Locale.getDefault()
+                ttsInstance?.language = java.util.Locale.getDefault()
             }
         }
+        ttsInstance
     }
     viewModel { FeedViewModel(get()) }
     viewModel {
