@@ -35,6 +35,8 @@ dependencies {
     implementation(libs.coil.network.ktor)
     implementation(libs.ktor.client.core)
     debugImplementation(libs.compose.uiTooling)
+
+    implementation(libs.androidx.car.app)
 }
 android {
     namespace = "com.app.currents"
