@@ -8,7 +8,13 @@
       "Bash(./gradlew :shared:testAndroidHostTest --console=plain)",
       "Bash(xargs -I{} sh -c 'cd /tmp && rm -rf ktorcore && mkdir ktorcore && unzip -q -o {} -d ktorcore')",
       "Read(//tmp/ktorcore/**)",
-      "Bash(./gradlew :shared:compileTestKotlinIosSimulatorArm64 --console=plain)"
+      "Bash(./gradlew :shared:compileTestKotlinIosSimulatorArm64 --console=plain)",
+      "WebSearch",
+      "Bash(java -version)",
+      "Bash(./gradlew -version)",
+      "Bash(./gradlew :shared:dependencies --configuration androidHostTestCompileClasspath --console=plain)",
+      "Bash(./gradlew :shared:testAndroidHostTest --tests \"com.app.currents.ui.smoke.SmokeComposeUiTest\" --console=plain)",
+      "Bash(./gradlew :shared:testAndroidHostTest --tests \"com.app.currents.ui.*\" --console=plain)"
     ]
   }
 }

@@ -1,3 +1,4 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -122,6 +123,17 @@ kotlin {
         }
         commonTest {
             languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        }
+
+        // Compose UI tests run as plain JVM unit tests via Robolectric (no device/emulator
+        // needed). `compose.uiTest` is JetBrains' Compose Gradle plugin accessor — it resolves
+        // to the correct underlying ui-test artifact/version per target automatically.
+        @OptIn(ExperimentalComposeLibrary::class)
+        getByName("androidHostTest") {
+            dependencies {
+                implementation(compose.uiTest)
+                implementation(libs.robolectric)
+            }
         }
     }
 }

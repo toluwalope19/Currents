@@ -73,7 +73,7 @@ fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HomeContent(
+internal fun HomeContent(
     uiState: com.app.currents.presentation.home.HomeUiState,
     isDarkTheme: Boolean,
     onThemeToggle: () -> Unit,

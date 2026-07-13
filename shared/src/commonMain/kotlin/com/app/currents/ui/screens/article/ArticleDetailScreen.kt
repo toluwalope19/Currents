@@ -118,7 +118,7 @@ fun ArticleDetailScreen(
 }
 
 @Composable
-private fun ArticleDetailContent(
+internal fun ArticleDetailContent(
     uiState: ArticleUiState,
     onBack: () -> Unit,
     onBookmarkToggle: () -> Unit,

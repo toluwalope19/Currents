@@ -30,6 +30,7 @@ datastore = "1.1.4"
 okio = "3.9.0"
 accompanist = "0.34.0"
 androidx-core-splashscreen = "1.0.1"
+robolectric = "4.16.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -90,6 +91,7 @@ okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-core-splashscreen" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
 wear-compose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wear-compose" }
 wear-compose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wear-compose" }

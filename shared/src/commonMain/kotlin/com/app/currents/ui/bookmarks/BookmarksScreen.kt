@@ -47,7 +47,7 @@ fun BookmarksScreen(
 }
 
 @Composable
-private fun BookmarksContent(
+internal fun BookmarksContent(
     uiState: BookmarksUiState,
     onEvent: (BookmarksUiEvent) -> Unit,
 ) {

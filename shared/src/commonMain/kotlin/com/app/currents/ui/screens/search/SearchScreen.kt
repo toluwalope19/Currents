@@ -54,7 +54,7 @@ fun SearchScreen(
 }
 
 @Composable
-private fun SearchContent(
+internal fun SearchContent(
     uiState: SearchUiState,
     onEvent: (SearchUiEvent) -> Unit,
 ) {
