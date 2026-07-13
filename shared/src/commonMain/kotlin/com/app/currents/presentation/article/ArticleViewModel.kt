@@ -50,6 +50,7 @@ class ArticleViewModel(
     private val isBookmarkedUseCase: IsBookmarkedUseCase,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
     private val appConfig: AppConfig,
+    private val httpClient: HttpClient = HttpClient(),
 ) : BaseViewModel<ArticleUiState, ArticleUiEvent, ArticleUiEffect>(ArticleUiState()) {
 
     override fun onEvent(event: ArticleUiEvent) {
@@ -134,7 +135,7 @@ class ArticleViewModel(
         viewModelScope.launch {
             setState { copy(isSummaryLoading = true, aiSummary = null) }
             try {
-                val client = HttpClient()
+                val client = httpClient
                 val prompt = """
                     Summarize this news article in 2-3 concise sentences.
                     Be factual and objective. Do not start with "This article" or "The article".
