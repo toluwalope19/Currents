@@ -21,7 +21,6 @@ import org.koin.dsl.module
 import coil3.ImageLoader
 import coil3.SingletonImageLoader
 import coil3.network.ktor3.KtorNetworkFetcherFactory
-import com.app.currents.di.platformModule
 import io.ktor.client.HttpClient
 import org.koin.android.ext.android.get
 import org.koin.core.context.GlobalContext
@@ -46,7 +45,6 @@ class MainActivity : ComponentActivity() {
                         single { com.app.currents.data.local.DatabaseFactory(androidContext()) }
                         single { DataStoreFactory(androidContext()) }
                     },
-                    platformModule,
                     *appModules.toTypedArray(),
                 )
             }
