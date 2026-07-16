@@ -278,9 +278,3 @@ Tests cover:
 - LinkedIn: [linkedin.com/in/ayodelepathfinder](https://linkedin.com/in/ayodelepathfinder)
 
 ---
-
-## 📄 License
-
-```
-MIT License — feel free to use this as a reference or starting point.
-```
