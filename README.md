@@ -268,18 +268,12 @@ Tests cover:
 
 ---
 
-## 📝 Blog Post
-
-Read about how this was built:
-> *Building a Multi-Platform News App with KMP + Compose Multiplatform* — coming soon on [dev.to/toluwalope19](https://dev.to/toluwalope19)
-
----
 
 ## 👨‍💻 Author
 
 **Toluwalope Ayodele**
 - GitHub: [@toluwalope19](https://github.com/toluwalope19)
-- LinkedIn: [linkedin.com/in/toluwalope](https://linkedin.com/in/ayodelepathfinder)
+- LinkedIn: [linkedin.com/in/ayodelepathfinder](https://linkedin.com/in/ayodelepathfinder)
 
 ---
 
