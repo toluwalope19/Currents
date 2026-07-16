@@ -1,3 +1,4 @@
+
 # ⚡ Currents
 
 A modern, multi-platform news app built with **Kotlin Multiplatform** and **Compose Multiplatform** — running natively on Android, iOS, Wear OS, and Android Auto from a single shared codebase.
@@ -11,27 +12,28 @@ A modern, multi-platform news app built with **Kotlin Multiplatform** and **Comp
 ### Android
 | Home | Explore | Search |
 |------|---------|--------|
-| ![Home](screenshots/android_home.png) | ![Explore](screenshots/android_explore.png) | ![Search](screenshots/android_search.png) |
+| <img width="300" src="https://github.com/user-attachments/assets/4e8f4da6-5987-4010-b434-83bc467b4a49" /> | <img width="300" src="https://github.com/user-attachments/assets/aaadd769-9fdb-426e-8b36-cc2d7c84b6c4" />| <img width="300" src="https://github.com/user-attachments/assets/f3a83faa-d6c1-420f-babb-0b603da988cc" />|
 
 | Bookmarks | Article Detail | Profile |
 |-----------|----------------|---------|
-| ![Bookmarks](screenshots/android_bookmarks.png) | ![Article](screenshots/android_article.png) | ![Profile](screenshots/android_profile.png) |
+| <img width="300"  alt="android_bookmarks" src="https://github.com/user-attachments/assets/98381f24-7996-4f20-a61d-f2912d8394f6" />|<img width="300" alt="android_article" src="https://github.com/user-attachments/assets/a0d58eb3-d419-4864-acfc-f11755c93708" />|<img width="300" alt="android_profile" src="https://github.com/user-attachments/assets/fee4b36f-7d04-46b9-a89e-30eb85cbc7fe" />|
 
 ### iOS
 | Home | Explore | Search |
 |------|---------|--------|
-| ![iOS Home](screenshots/ios_home.png) | ![iOS Explore](screenshots/ios_explore.png) | ![IOS Search](screenshots/android_search.png) |
+|<img width="300" alt="ios_home" src="https://github.com/user-attachments/assets/1cb0c495-8a99-4db2-987e-da3fcd9427fc" />| <img width="300" alt="ios_explore" src="https://github.com/user-attachments/assets/1d1b0b68-d981-49e0-9ddd-340b842f5fd2" />| <img width="300" alt="ios_search" src="https://github.com/user-attachments/assets/3bf90f46-1c1b-47b7-a90b-2d0c14e18aa0" />
+|
 
 
-| Bookmarks                                       | Article Detail                              | Profile                                     |
-|-------------------------------------------------|---------------------------------------------|---------------------------------------------|
-| ![IOS Bookmarks](screenshots/ios_bookmarks.png) | ![IOS Article](screenshots/ios_article.png) | ![IOS Profile](screenshots/ios_profile.png) |
+| Bookmarks | Article Detail | Profile |
+|-----------|----------------|---------|
+| <img width="300" alt="ios_bookmarks" src="https://github.com/user-attachments/assets/5e7eb200-75d3-4a13-99e6-f98d6c4c04d1" />| <img width="300" alt="Simulator Screenshot - iPhone16 - 2026-07-16 at 23 55 17" src="https://github.com/user-attachments/assets/40f0b1c2-a940-45e5-8bc6-f0732ee14569" />|<img width="300" alt="ios_profile" src="https://github.com/user-attachments/assets/0d433d5e-5577-46a2-8e5d-f9e0dfad425a" />|
 
 
 ### Wear OS
 | Feed | Article + TTS |
 |------|---------------|
-| ![Wear Feed](screenshots/wear_feed.png) | ![Wear Article](screenshots/wear_article.png) |
+| <img width="150" alt="wear_feed" src="https://github.com/user-attachments/assets/84fe6738-7f8d-460b-93e4-1e5dec60b786" />| <img width="150" alt="wear_article" src="https://github.com/user-attachments/assets/849993e2-9907-4d24-8a90-1547a80abe87" />|
 
 ---
 
